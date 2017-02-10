@@ -10,11 +10,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.leo.firebasedemo.MainActivity">
 
-    <Button
-        android:text="Add Value to firebase"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/sendButton" />
+        android:layout_marginTop="30dp"
+        android:id="@+id/editText"
+        android:padding="20dp" />
+
+    <Button
+        android:text="Add Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addbutton" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/value" />
+
 </RelativeLayout>

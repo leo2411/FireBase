@@ -4,30 +4,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mSendData;
-    private Firebase mRef;
+    private EditText mName,mvalue;
+    private Button mButton;
+    private Firebase mRootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Firebase.setAndroidContext(this);
 
-        mRef = new Firebase("https://fir-demo-b8cb9.firebaseio.com/");
+        mRootRef = new Firebase("https://fir-demo-b8cb9.firebaseio.com/Users");
 
-        mSendData = (Button) findViewById(R.id.sendButton);
+        mName = (EditText) findViewById(R.id.editText);
+        mvalue = (EditText) findViewById(R.id.value);
+        mButton = (Button) findViewById(R.id.addbutton);
 
-        mSendData.setOnClickListener(new View.OnClickListener() {
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Firebase mRefChild = mRef.child("Name");
-                mRefChild.setValue("Leo");
+
+                String name = mName.getText().toString();
+                String value = mvalue.getText().toString();
+
+                Firebase childRef = mRootRef.child(value);
+
+                childRef.setValue(name);
             }
         });
+
     }
 }
