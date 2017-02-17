@@ -6,11 +6,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mName,mvalue;
+    private EditText mvalue;
     private Button mButton;
     private Firebase mRootRef;
 
@@ -19,22 +24,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRootRef = new Firebase("https://fir-demo-b8cb9.firebaseio.com/Users");
+        mRootRef = new Firebase("https://fir-demo-b8cb9.firebaseio.com/Name");
 
-        mName = (EditText) findViewById(R.id.editText);
         mvalue = (EditText) findViewById(R.id.value);
-        mButton = (Button) findViewById(R.id.addbutton);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mRootRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String name = mName.getText().toString();
-                String value = mvalue.getText().toString();
+                Map<String,String> map = dataSnapshot.getValue(Map.class);
+                String name = map.get("Name");
+                String age = map.get("Age");
+                String profession = map.get("Profession");
 
-                Firebase childRef = mRootRef.child(value);
+            }
 
-                childRef.setValue(name);
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
             }
         });
 
